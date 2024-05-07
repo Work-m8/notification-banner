@@ -38,6 +38,6 @@ jobs:
           author_name: Workm8
           author_email: workm8@users.noreply.github.com
           message: 'Added Notification'
-          add: 'README.txt'
+          add: 'README.md'
 
      
