@@ -1,0 +1,53 @@
+name: "test"
+on:
+  push:
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+
+jobs:
+  test-unit:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18.x"
+
+      - name: test
+        run: |
+          npm ci
+          npm test
+
+  test-run:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18.x"
+
+      - name: test
+        run: |
+          npm ci
+          npm run build
+
+
+      - name: test run
+        uses: ./
+        with:
+          path: './test/fixture/notifications/notification.md'
+          file: "test/fixture/input.md"
+
+      - name: check diff
+        run: diff test/fixture/input.md test/fixture/wants.md
