@@ -1,5 +1,7 @@
 import * as core from "@actions/core";
-import { getLines, writeLines, updateFile, isChanged, write } from "./markdown";
+import { getLines, updateFile, isChanged, write } from "./markdown";
+import { promises as fs } from "fs";
+import { parseNotifications } from "./notification";
 
 async function run() {
   const sort = core.getInput("sort").toLowerCase() === "true";
@@ -8,6 +10,9 @@ async function run() {
     core.setFailed("Cannot set `maxEntry` to lower than 0");
     return;
   }
+
+  const from = new Date(parseInt(core.getInput("from"), 10) || 0);
+  const to = new Date(parseInt(core.getInput("to"), 10) || NaN);
 
   const startFlag =
     core.getInput("start_flag") || "<!-- notification start -->";
@@ -31,6 +36,10 @@ async function run() {
     return;
   }
 
+  const notifications = await Promise.all(
+    paths.map((p) => fs.readFile(p, { encoding: "utf8" }))
+  );
+
   const file = core.getInput("file");
 
   if (!file) {
@@ -52,7 +61,11 @@ async function run() {
       return;
     }
   }
-  const allItems: [] = [];
+  const allItems: string[] = parseNotifications(
+    notifications,
+    from,
+    isNaN(to.getTime()) ? undefined : to
+  );
 
   const items = allItems.slice(0, maxEntry);
 

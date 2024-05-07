@@ -46,7 +46,7 @@ jobs:
       - name: test run
         uses: ./
         with:
-          path: './test/fixture/notifications/notification.md'
+          path: 'test/fixture/notifications/notification.md'
           file: "test/fixture/input.md"
 
       - name: check diff

@@ -3,7 +3,7 @@
 Above the notification 
 
 <!-- notification start -->
-This is a test
+This will be removed
 <!-- notification end -->
 
 Below the notification
