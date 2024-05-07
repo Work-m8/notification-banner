@@ -11,9 +11,6 @@ async function run() {
     return;
   }
 
-  const from = new Date(parseInt(core.getInput("from"), 10) || 0);
-  const to = new Date(parseInt(core.getInput("to"), 10) || NaN);
-
   const startFlag =
     core.getInput("start_flag") || "<!-- notification start -->";
   const endFlag = core.getInput("end_flag") || "<!-- notification end -->";
@@ -61,11 +58,7 @@ async function run() {
       return;
     }
   }
-  const allItems: string[] = parseNotifications(
-    notifications,
-    from,
-    isNaN(to.getTime()) ? undefined : to
-  );
+  const allItems: string[] = parseNotifications(notifications);
 
   const items = allItems.slice(0, maxEntry);
 

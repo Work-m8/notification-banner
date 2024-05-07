@@ -5,14 +5,11 @@ type Attributes = {
   to?: string;
 };
 
-export const parseNotifications = (
-  contents: string[],
-  from: Date,
-  to?: Date
-): string[] => {
+export const parseNotifications = (contents: string[]): string[] => {
   return contents
     .filter((c) => {
       const frontMatter = fm<Attributes>(c);
+
       const from: number = new Date(
         frontMatter.attributes.from || ""
       ).getTime();

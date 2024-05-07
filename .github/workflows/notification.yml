@@ -1,0 +1,41 @@
+name: "test"
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  add-notification:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18.x"
+
+      - name: test
+        run: |
+          npm ci
+          npm run build
+
+      - name: run
+        uses: ./
+        with:
+          path: 'notifications/notification.md'
+          file: "README.md"
+
+      - name: check diff
+        run: diff test/fixture/input.md test/fixture/wants.md
+
+
+      - name: Commit Notification
+        run: |
+          git config --global user.name 'Workm8'
+          git config --global user.email 'workm8@users.noreply.github.com'
+          git commit -am "Added README.md notification"
+          git push
