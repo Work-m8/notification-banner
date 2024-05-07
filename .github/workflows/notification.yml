@@ -32,9 +32,12 @@ jobs:
           path: 'notifications/notification.md'
           file: "README.md"
 
-      - name: Commit Notification
-        run: |
-          git config --global user.name 'Workm8'
-          git config --global user.email 'workm8@users.noreply.github.com'
-          git commit -am "Added README.md notification"
-          git push
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Workm8
+          author_email: workm8@users.noreply.github.com
+          message: 'Added Notification'
+          add: 'README.txt'
+
+     
