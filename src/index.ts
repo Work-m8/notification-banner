@@ -69,10 +69,10 @@ async function run() {
 
   const items = allItems.slice(0, maxEntry);
 
-  const newLines = items;
+  const newLines = [startFlag, ...items, endFlag];
   const joinedNewLines = newLines.join("\n");
 
-  core.startGroup("Dump feeds block");
+  core.startGroup("Dump notifications block");
   core.info(joinedNewLines);
   core.endGroup();
 
