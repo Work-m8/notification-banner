@@ -1,0 +1,42 @@
+name: "Notification Banner Readme"
+description: "Creates a notification banner in your GitHub README. Supports FrontMatter"
+author: Workm8
+
+inputs:
+  path:
+    description: "Path of the notification file"
+    required: true
+  file:
+    description: "Path to Markdown file to update"
+    required: true
+  max_entry:
+    description: "Number of entries to show"
+    required: false
+    default: "5"
+  start_flag:
+    description: "Start of notification block in Markdown"
+    required: false
+    default: "<!-- notification start -->"
+  end_flag:
+    description: "End of notification block in Markdown"
+    required: false
+    default: "<!-- notification end -->"
+  nowrite:
+    description: "Do not write results to the file specified as `file` input"
+    required: false
+    default: "false"
+outputs:
+  changed:
+    description: Whether the document is changed while this actions's run
+  newlines:
+    description: New lines inserted to the document
+  result:
+    description: Result document with feed lines inserted
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
+
+branding:
+  color: "red"
+  icon: "rss"
