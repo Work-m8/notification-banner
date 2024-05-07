@@ -4,6 +4,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   add-notification:
     runs-on: ubuntu-latest
@@ -18,12 +21,12 @@ jobs:
         with:
           node-version: "18.x"
 
-      - name: test
+      - name: Build
         run: |
           npm ci
           npm run build
 
-      - name: run
+      - name: Run
         uses: ./
         with:
           path: 'notifications/notification.md'
