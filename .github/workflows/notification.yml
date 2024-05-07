@@ -4,15 +4,12 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
-
 jobs:
   add-notification:
     runs-on: ubuntu-latest
     permissions:
-      packages: read
-      contents: read
+      packages: write
+      contents: write
     steps:
       - uses: actions/checkout@v3
 
