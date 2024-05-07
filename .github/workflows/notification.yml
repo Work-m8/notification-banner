@@ -1,4 +1,4 @@
-name: "test"
+name: "Add notification"
 on:
   push:
     branches:
@@ -28,10 +28,6 @@ jobs:
         with:
           path: 'notifications/notification.md'
           file: "README.md"
-
-      - name: check diff
-        run: diff test/fixture/input.md test/fixture/wants.md
-
 
       - name: Commit Notification
         run: |
