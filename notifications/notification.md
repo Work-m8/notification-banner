@@ -2,5 +2,5 @@
 from: 0
 ---
 
-> [!IMPORTANT]
+> [!WARNING]
 > This GitHub Action adds custom notifications to your README.md
